@@ -1,7 +1,7 @@
 #---------------------------------------
 # Set training data and connect to it 
 # 
-trainingData <- '/Users/soojunghong/Documents/kaggle_recommender/train_ver2.csv'
+trainingData <- '/Users/soojunghong/Documents/kaggle/data/train_ver2.csv'
 con = file(trainingData, "r")
 
 #----------------
