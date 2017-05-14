@@ -32,7 +32,7 @@ aggdata
 #----------------------------------------
 # plot of 'int_nomina_ult1' of each age 
 # Density curve
-plot(data_age_payroll$age, data_age_payroll$ind_nomina_ult1, type="n", xlab="Age", ylab="Hold Payroll Account" ) 
+plot(data_age_payroll$age, data_age_payroll$ind_nomina_ult1, type="l", xlab="Age", ylab="Hold Payroll Account" ) 
 
 #---------------------------
 # close connection to file
