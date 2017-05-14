@@ -10,7 +10,7 @@ con = file(trainingData, "r")
 
 #----------------
 # Read 20 rows
-partialData <- read.csv(con, nrows=200)
+partialData <- read.csv(con, nrows=1000)
 partialData
 str(partialData)
 
@@ -25,9 +25,14 @@ payrollRange <- range(partialData$ind_nomina_ult1)
 ageRange
 payrollRange
 
-# Density curve
-ggplot(data_age_payroll, aes(x=age, y=ind_nomina_ult1)) + geom_density()
+# aggregate of 'age' and sum of 'ind_nomina_ult1'
+aggdata <-aggregate(data_age_payroll$ind_nomina_ult1, by=list(data_age_payroll$age), FUN=sum)
+aggdata
 
+#----------------------------------------
+# plot of 'int_nomina_ult1' of each age 
+# Density curve
+plot(data_age_payroll$age, data_age_payroll$ind_nomina_ult1, type="n", xlab="Age", ylab="Hold Payroll Account" ) 
 
 #---------------------------
 # close connection to file
