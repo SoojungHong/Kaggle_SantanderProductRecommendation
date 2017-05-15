@@ -10,9 +10,20 @@ con = file(trainingData, "r")
 
 #----------------
 # Read 20 rows
-partialData <- read.csv(con, nrows=1000)
+partialData <- read.csv(con, nrows=50)
 partialData
 str(partialData)
+
+dataForPCA <- partialData[, c("ncodpers", "age", "renta", "antiguedad")]  # ind_ahor_fin_ult1", "ind_tjcr_fin_ult1")]
+dataForPCA[is.na(dataForPCA)] <- 0 #replace NA with zero
+dataForPCA
+
+#---------------------------------------
+# PCA (Principle Component Analysis)
+prin_comp <- prcomp(dataForPCA, scale. = T)
+names(prin_comp)
+
+biplot(prin_comp, scale = 0)
 
 #----------------------
 # 'age' and 'payroll' 
@@ -33,6 +44,7 @@ aggdata
 # plot of 'int_nomina_ult1' of each age 
 # Density curve
 plot(data_age_payroll$age, data_age_payroll$ind_nomina_ult1, type="l", xlab="Age", ylab="Hold Payroll Account" ) 
+
 
 #---------------------------
 # close connection to file
