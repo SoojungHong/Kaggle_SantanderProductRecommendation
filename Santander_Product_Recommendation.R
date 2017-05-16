@@ -10,9 +10,33 @@ con = file(trainingData, "r")
 
 #----------------
 # Read 20 rows
-partialData <- read.csv(con, nrows=50)
+partialData <- read.csv(con, nrows=1000)
 partialData
 str(partialData)
+
+#ncodpers 	Customer code
+#ind_empleado 	Employee index: A active, B ex employed, F filial, N not employee, P pasive (is employee of bank)
+#ind_cno_fin_ult1 	Payroll Account
+#conyuemp  	Spouse index. 1 if the customer is spouse of an employee
+#segmento  	segmentation: 01 - VIP, 02 - Individuals 03 - college graduated
+
+#------------------------
+#scatter plot matrics
+pairs(partialData[,2:7])
+
+customerNo <- partialData[, c("ncodpers")]
+customerNo
+
+segmentation <- partialData[, c("segmento")] 
+segmentation 
+
+age <- partialData[, c("age")]
+age
+payrollAccount <- partialData[,c("ind_cno_fin_ult1")]
+payrollAccount
+
+plot(segmentation, payrollAccount)
+qplot(customerNo, age, data=partialData, geom="line")
 
 dataForPCA <- partialData[, c("ncodpers", "age", "renta", "antiguedad")]  # ind_ahor_fin_ult1", "ind_tjcr_fin_ult1")]
 dataForPCA[is.na(dataForPCA)] <- 0 #replace NA with zero
