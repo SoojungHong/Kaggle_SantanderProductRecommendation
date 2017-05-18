@@ -1,6 +1,7 @@
 #---------------
 # library 
 library(ggplot2)
+library(reshape)
 
 #---------------------------------------
 # Set training data and connect to it 
@@ -14,11 +15,43 @@ partialData <- read.csv(con, nrows=1000)
 partialData
 str(partialData)
 
+
+#--------------------------------
+# column and short description 
+#
 #ncodpers 	Customer code
 #ind_empleado 	Employee index: A active, B ex employed, F filial, N not employee, P pasive (is employee of bank)
 #ind_cno_fin_ult1 	Payroll Account
 #conyuemp  	Spouse index. 1 if the customer is spouse of an employee
 #segmento  	segmentation: 01 - VIP, 02 - Individuals 03 - college graduated
+#sexo 	Customer's sex
+
+#----------------------------
+# Analysis of columns 
+# age distribution 
+factor(partialData$age)
+table(partialData$age) #for each age, the number of occurrence
+prop.table(table(partialData$age))
+barplot(table(partialData$age))
+barplot(prop.table(table(partialData$age))):
+  
+#-----------------------------
+# relationship between age and 'ind_ecue_fin_ult1' 	e-account
+print(partialData$ind_ecue_fin_ult1)
+table(partialData$ind_ecue_fin_ult1) #portion of yes(1) and no(0)
+
+age_eaccount <- partialData[, c("age", "ind_ecue_fin_ult1")]
+age_eaccount
+table(age_eaccount)
+dataFrame <- as.data.frame.matrix(table(age_eaccount)) 
+dataFrame
+plot(dataFrame$`0`) #age and e-account number
+
+cod_provData <- partialData[, c("ncodpers", "ind_actividad_cliente")]
+cod_provData
+data.frame(cod_provData)
+  
+prop.table(partialData)
 
 #------------------------
 #scatter plot matrics
