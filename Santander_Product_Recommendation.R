@@ -11,7 +11,7 @@ con = file(trainingData, "r")
 
 #----------------
 # Read 20 rows
-partialData <- read.csv(con, nrows=1000)
+partialData <- read.csv(con, nrows=50)
 partialData
 str(partialData)
 
@@ -28,6 +28,36 @@ str(partialData)
 
 #----------------------------
 # Analysis of columns 
+
+# employee of bank 
+# ind_cno_fin_ult1 : payroll account
+# employee of bank and payroll account has no relationship
+employee_payroll <- partialData[, c('ind_empleado', 'ind_cno_fin_ult1')]
+employee_payroll
+
+print(partialData$ind_empleado)
+table(partialData$ind_empleado)
+table(partialData$ind_cno_fin_ult1)
+
+table(employee_payroll)
+dataFrame <- as.data.frame.matrix(table(employee_payroll)) 
+dataFrame
+plot(dataFrame$`1`)
+
+#renta :	Gross income of the household
+rentaData <- partialData[, c('renta')]
+rentaData[is.na(rentaData)] <- 0
+print(partialData$renta)
+
+plot(partialData$renta)
+
+#--------------------
+# table for all types of account 
+table(partialData$ind_ahor_fin_ult1) 	#Saving Account
+table(partialData$ind_cco_fin_ult1) 	#Current Accounts
+table(partialData$ind_fond_fin_ult1)  #Funds
+table(partialData$ind_recibo_ult1) 	#Direct Debit
+
 # age distribution 
 factor(partialData$age)
 table(partialData$age) #for each age, the number of occurrence
@@ -40,12 +70,13 @@ barplot(prop.table(table(partialData$age))):
 print(partialData$ind_ecue_fin_ult1)
 table(partialData$ind_ecue_fin_ult1) #portion of yes(1) and no(0)
 
+
 age_eaccount <- partialData[, c("age", "ind_ecue_fin_ult1")]
 age_eaccount
 table(age_eaccount)
 dataFrame <- as.data.frame.matrix(table(age_eaccount)) 
 dataFrame
-plot(dataFrame$`0`) #age and e-account number
+plot(dataFrame$`1`) #age and e-account number
 
 cod_provData <- partialData[, c("ncodpers", "ind_actividad_cliente")]
 cod_provData
